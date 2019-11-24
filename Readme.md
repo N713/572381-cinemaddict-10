@@ -1,7 +1,7 @@
 # Личный проект «Киноман» [![Build status][travis-image]][travis-url]
 
 * Студент: [Илья Наумов](https://up.htmlacademy.ru/ecmascript/10/user/572381).
-* Наставник: [none].
+* Наставник: [none.].
 
 ---
 
