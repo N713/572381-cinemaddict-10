@@ -12,6 +12,12 @@ export const utils = {
     BEFOREEND: `beforeend`,
   },
 
+  makeElement: (template) => {
+    const newElement = document.createElement(`div`);
+    newElement.innerHTML = template;
+    return newElement.firstElementChild;
+  },
+
   render: (container, element, place) => {
     switch (place) {
       case utils.Position.AFTERBEGIN:
