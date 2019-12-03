@@ -26,4 +26,27 @@ export const utils = {
       element.remove();
     }
   },
+
+  getRandomIntegerUnder: (under = 1) => {
+    return Math.floor(Math.random() * under);
+  },
+
+  minutesToHours: (minutes) => {
+    let hours = Math.floor(minutes / 60);
+    let lastMinutes = minutes - (hours * 60);
+
+    if (lastMinutes < 10) {
+      return `${hours}h 0${lastMinutes}m`;
+    }
+
+    return `${hours}h ${lastMinutes}m`;
+  },
+
+  avoidZero: (number) => {
+    if (number === 0) {
+      number = 1;
+    }
+
+    return number;
+  },
 };
