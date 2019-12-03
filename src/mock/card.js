@@ -5,6 +5,7 @@ const NUMBER_OF_TITLES = 7;
 const STRINGS_TO_DESCRIPTION = 3;
 const NUMBER_OF_CARDS = 20;
 const NUMBER_OF_EXTRAS = 2;
+const NUMBER_OF_POPUPS = 1;
 
 const getPoster = () => {
   return [
@@ -78,45 +79,42 @@ const getCommentsData = () => ({
   ][utils.getRandomIntegerUnder(COMMENTS_NUMBER)],
 });
 
-const getCard = (index) => {
-  return {
-    "id": index,
-    "comments": getCommentsData(),
-    "film_info": {
-      "title": getTitle(),
-      "alternative_title": getTitle(),
-      "total_rating": getRating(),
-      "poster": getPoster(),
-      "age_rating": [12, 14, 16, 18][utils.getRandomIntegerUnder(COMMENTS_NUMBER)],
-      "director": [`Anthony Mann`, `Anthony Wann`, `Anthony Zann`][utils.getRandomIntegerUnder(STRINGS_TO_DESCRIPTION)],
-      "writers": [`Anne Wigton`, `Heinz Herald`, `Richard Weil`][utils.getRandomIntegerUnder(STRINGS_TO_DESCRIPTION)],
-      "actors": [`Erich von Stroheim`, `Mary Beth Hughes`, `Dan Duryea`][utils.getRandomIntegerUnder(STRINGS_TO_DESCRIPTION)],
-      "release": {
-        "date": getYear(),
-        "release_country": [`USA`, `Canada`, `France`, `Germany`, `Italy`, `Spain`, `Norway`][utils.getRandomIntegerUnder(NUMBER_OF_TITLES)],
-      },
-      "runtime": getDuration(),
-      "genre": getGenre(),
-      "description": getDescription(),
+const getCard = (index) => ({
+  id: index,
+  comments: new Array(NUMBER_OF_TITLES).fill(``).map(getCommentsData),
+  filmInfo: {
+    title: getTitle(),
+    alternativeTitle: getTitle(),
+    totalRating: getRating(),
+    poster: getPoster(),
+    ageRating: [12, 14, 16, 18][utils.getRandomIntegerUnder(COMMENTS_NUMBER)],
+    director: [`Anthony Mann`, `Anthony Wann`, `Anthony Zann`][utils.getRandomIntegerUnder(STRINGS_TO_DESCRIPTION)],
+    writers: [`Anne Wigton`, `Heinz Herald`, `Richard Weil`][utils.getRandomIntegerUnder(STRINGS_TO_DESCRIPTION)],
+    actors: [`Erich von Stroheim`, `Mary Beth Hughes`, `Dan Duryea`][utils.getRandomIntegerUnder(STRINGS_TO_DESCRIPTION)],
+    release: {
+      date: getYear(),
+      releaseCountry: [`USA`, `Canada`, `France`, `Germany`, `Italy`, `Spain`, `Norway`][utils.getRandomIntegerUnder(NUMBER_OF_TITLES)],
     },
-    "user_details": {
-      "personal_rating": getRating(),
-      "watchlist": false,
-      "already_watched": true,
-      "watching_date": `2019-05-11T16:12:32.554Z`,
-      "favorite": false
-    }
-  };
-};
+    runtime: getDuration(),
+    genre: getGenre(),
+    description: getDescription(),
+  },
+  userDetails: {
+    personalRating: getRating(),
+    watchlist: false,
+    alreadyWatched: true,
+    watchingDate: `2019-05-11T16:12:32.554Z`,
+    favorite: false
+  }
+});
 
 const getCards = () => {
   const data = [];
-  for (let i = 0; i < NUMBER_OF_CARDS + 2 * NUMBER_OF_EXTRAS; i++) {
+  for (let i = 0; i < NUMBER_OF_CARDS + 2 * NUMBER_OF_EXTRAS + NUMBER_OF_POPUPS; i++) {
     data.push(getCard(i));
   }
 
   return data;
 };
 
-export const comments = new Array(NUMBER_OF_TITLES).fill(``).map(getCommentsData);
 export const cards = getCards();
