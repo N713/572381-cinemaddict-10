@@ -2,8 +2,6 @@ import {utils} from "./components/site-utils";
 import {filters} from "./mock/filters";
 import {cards} from "./mock/card";
 
-import {getPopupTemplate} from "./components/site-film-popup";
-
 import FilmsSectionComponent from "./components/site-films-section";
 import TopRatedFilmsComponent from "./components/site-films-top";
 import MostCommentedFilmsComponent from "./components/site-most-commented";
@@ -13,6 +11,7 @@ import ProfileComponent from "./components/site-profile";
 import SortingComponent from "./components/site-sorting";
 import FilmsListComponent from "./components/site-films-list";
 import ShowMoreButtonComponent from "./components/site-show-more-button";
+import PopupComponent from "./components/site-film-popup";
 
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
@@ -60,6 +59,6 @@ utils.renderCards(cards, NUMBER_TO_SHOW, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS,
 utils.renderCards(cards, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, NUMBER_TO_SHOW + 2 * NUMBER_OF_EXTRA_CARDS, mostCommented);
 
 const body = document.querySelector(`body`);
-utils.render(body, utils.makeElement(getPopupTemplate()), utils.Position.BEFOREEND);
+utils.render(body, new PopupComponent(cards[cards.length - 1]).getElement(), utils.Position.BEFOREEND);
 const popup = body.querySelector(`.film-details`);
 popup.classList.add(`visually-hidden`);
