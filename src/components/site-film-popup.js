@@ -170,8 +170,6 @@ const getPopupTemplate = (card) => {
 </section>`;
 };
 
-// export {getPopupTemplate};
-
 export default class PopupComponent {
   constructor(card) {
     this._card = card;
