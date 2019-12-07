@@ -62,3 +62,23 @@ const body = document.querySelector(`body`);
 utils.render(body, new PopupComponent(cards[cards.length - 1]).getElement(), utils.Position.BEFOREEND);
 const popup = body.querySelector(`.film-details`);
 popup.classList.add(`visually-hidden`);
+
+const allCards = document.querySelectorAll(`.film-card`);
+allCards.forEach((card) => {
+  card.addEventListener(`click`, (evt) => {
+    popup.classList.remove(`visually-hidden`);
+  });
+});
+
+body.addEventListener(`keydown`, (evt) => {
+  if (evt.key === `Escape` || evt.key === `Esc` && !popup.classList.contains(`visually-hidden`)) {
+    popup.classList.add(`visually-hidden`);
+  }
+});
+
+const closePopupButton = popup.querySelector(`.film-details__close-btn`);
+closePopupButton.addEventListener(`click`, (evt) => {
+  evt.preventDefault();
+
+  popup.classList.add(`visually-hidden`);
+});
