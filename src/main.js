@@ -1,16 +1,17 @@
 import {utils} from "./components/site-utils";
-import {getProfileTemplate} from "./components/site-profile";
-import {getSearchTemplate} from "./components/site-search";
-import {getNavigationTemplate} from "./components/site-navigation";
-import {getSortingTemplate} from "./components/site-sorting";
-import {getFilmsSectionTemplate} from "./components/site-films-section";
-import {getFilmsListTemplate} from "./components/site-films-list";
-import {getTopRatedTemplate} from "./components/site-films-top";
-import {getMostCommentedTemplate} from "./components/site-most-commented";
-import {getFilmCardTemplate} from "./components/site-film-card";
-import {getPopupTemplate} from "./components/site-film-popup";
 import {filters} from "./mock/filters";
 import {cards} from "./mock/card";
+
+import FilmsSectionComponent from "./components/site-films-section";
+import TopRatedFilmsComponent from "./components/site-films-top";
+import MostCommentedFilmsComponent from "./components/site-most-commented";
+import NavigationComponent from "./components/site-navigation";
+import SearchComponent from "./components/site-search";
+import ProfileComponent from "./components/site-profile";
+import SortingComponent from "./components/site-sorting";
+import FilmsListComponent from "./components/site-films-list";
+import ShowMoreButtonComponent from "./components/site-show-more-button";
+import PopupComponent from "./components/site-film-popup";
 
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
@@ -20,32 +21,22 @@ const SHOW_BY_BUTTON = 5;
 const NUMBER_OF_EXTRA_CARDS = 2;
 const NUMBER_TO_SHOW = 20;
 
-const renderElements = (elementsArray, elementsParent) => {
-  elementsArray.forEach((element) => {
-    utils.render(elementsParent, element, utils.Position.BEFOREEND);
-  });
-};
+const headerElements = [new SearchComponent().getElement(), new ProfileComponent().getElement()];
+utils.renderElements(headerElements, header);
 
-const renderCards = (array, from, to, parent) => {
-  array.slice(from, to).forEach((element) => {
-    utils.render(parent, utils.makeElement(getFilmCardTemplate(element)), utils.Position.BEFOREEND);
-  });
-};
-
-const headerElements = [utils.makeElement(getSearchTemplate()), utils.makeElement(getProfileTemplate())];
-renderElements(headerElements, header);
-
-const mainElements = [utils.makeElement(getNavigationTemplate(filters)), utils.makeElement(getSortingTemplate()),
-  utils.makeElement(getFilmsSectionTemplate())];
-renderElements(mainElements, main);
+const mainElements = [new NavigationComponent(filters).getElement(), new SortingComponent().getElement(),
+  new FilmsSectionComponent().getElement()];
+utils.renderElements(mainElements, main);
 
 const filmsSection = main.querySelector(`.films`);
-const filmsSectionElements = [utils.makeElement(getFilmsListTemplate()), utils.makeElement(getTopRatedTemplate()),
-  utils.makeElement(getMostCommentedTemplate())];
-renderElements(filmsSectionElements, filmsSection);
+const filmsSectionElements = [new FilmsListComponent().getElement(), new TopRatedFilmsComponent().getElement(),
+  new MostCommentedFilmsComponent().getElement()];
+utils.renderElements(filmsSectionElements, filmsSection);
 
-const filmsList = filmsSection.querySelector(`.films-list .films-list__container`);
-renderCards(cards, 0, NUMBER_OF_CARDS, filmsList);
+const filmsList = filmsSection.querySelector(`.films-list`);
+const filmsListContainer = filmsSection.querySelector(`.films-list .films-list__container`);
+utils.render(filmsList, new ShowMoreButtonComponent().getElement(), utils.Position.BEFOREEND);
+utils.renderCards(cards, 0, NUMBER_OF_CARDS, filmsListContainer);
 
 let counter = NUMBER_OF_CARDS;
 
@@ -55,7 +46,7 @@ showMoreButton.addEventListener(`click`, () => {
   const cardsToShow = counter + SHOW_BY_BUTTON;
   counter += SHOW_BY_BUTTON;
 
-  renderCards(cards, showedCards, cardsToShow, filmsList);
+  utils.renderCards(cards, showedCards, cardsToShow, filmsListContainer);
 
   if (counter >= NUMBER_TO_SHOW) {
     showMoreButton.remove();
@@ -64,10 +55,10 @@ showMoreButton.addEventListener(`click`, () => {
 
 const extras = filmsSection.querySelectorAll(`.films-list--extra .films-list__container`);
 const [topRated, mostCommented] = extras;
-renderCards(cards, NUMBER_TO_SHOW, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, topRated);
-renderCards(cards, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, NUMBER_TO_SHOW + 2 * NUMBER_OF_EXTRA_CARDS, mostCommented);
+utils.renderCards(cards, NUMBER_TO_SHOW, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, topRated);
+utils.renderCards(cards, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, NUMBER_TO_SHOW + 2 * NUMBER_OF_EXTRA_CARDS, mostCommented);
 
 const body = document.querySelector(`body`);
-utils.render(body, utils.makeElement(getPopupTemplate()), utils.Position.BEFOREEND);
+utils.render(body, new PopupComponent(cards[cards.length - 1]).getElement(), utils.Position.BEFOREEND);
 const popup = body.querySelector(`.film-details`);
 popup.classList.add(`visually-hidden`);

@@ -1,3 +1,5 @@
+import {utils} from "./site-utils";
+
 const makeFiltersMarkup = (filter) => {
   return `
     <a href="#${filter.filter}" class="main-navigation__item main-navigation__item--active">${filter.filter}
@@ -16,4 +18,25 @@ const getNavigationTemplate = (filters) => {
     </nav>`);
 };
 
-export {getNavigationTemplate};
+export default class NavigationComponent {
+  constructor(filters) {
+    this._filters = filters;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getNavigationTemplate(this._filters);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = utils.makeElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

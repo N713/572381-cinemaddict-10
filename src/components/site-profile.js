@@ -1,3 +1,5 @@
+import {utils} from "./site-utils";
+
 const getProfileTemplate = () => {
   return `<section class="header__profile profile">
     <p class="profile__rating">Movie Buff</p>
@@ -5,4 +7,24 @@ const getProfileTemplate = () => {
   </section>`;
 };
 
-export {getProfileTemplate};
+export default class ProfileComponent {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getProfileTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = utils.makeElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}

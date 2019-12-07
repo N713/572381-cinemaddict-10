@@ -1,3 +1,5 @@
+import {utils} from "./site-utils";
+
 const getSearchTemplate = () => {
   return `
     <form class="header__search search">
@@ -10,4 +12,24 @@ const getSearchTemplate = () => {
     </form>`;
 };
 
-export {getSearchTemplate};
+export default class SearchComponent {
+  constructor() {
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getSearchTemplate();
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = utils.makeElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
