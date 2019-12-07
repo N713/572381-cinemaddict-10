@@ -1,19 +1,16 @@
 import {utils} from "./site-utils";
 
-const getMostCommentedTemplate = () => {
-  return `<section class="films-list--extra">
-      <h2 class="films-list__title">Most commented</h2>
-      <div class="films-list__container"></div>
-    </section>`;
+const getShowMoreButtonTemplate = () => {
+  return `<button class="films-list__show-more">Show more</button>`;
 };
 
-export default class MostCommentedFilmsComponent {
+export default class ShowMoreButtonComponent {
   constructor() {
     this._element = null;
   }
 
   getTemplate() {
-    return getMostCommentedTemplate();
+    return getShowMoreButtonTemplate();
   }
 
   getElement() {
@@ -28,3 +25,4 @@ export default class MostCommentedFilmsComponent {
     this._element = null;
   }
 }
+

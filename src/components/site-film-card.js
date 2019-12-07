@@ -22,8 +22,6 @@ const getFilmCardTemplate = (card) => {
         </article>`;
 };
 
-// export {getFilmCardTemplate};
-
 export default class Card {
   constructor(card) {
     this._card = card;

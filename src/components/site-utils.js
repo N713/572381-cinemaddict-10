@@ -1,3 +1,5 @@
+import Card from "./site-film-card";
+
 export const utils = {
   Position: {
     AFTERBEGIN: `afterbegin`,
@@ -48,5 +50,17 @@ export const utils = {
     }
 
     return number;
+  },
+
+  renderElements: (elementsArray, elementsParent) => {
+    elementsArray.forEach((element) => {
+      utils.render(elementsParent, element, utils.Position.BEFOREEND);
+    });
+  },
+
+  renderCards: (array, from, to, parent) => {
+    array.slice(from, to).forEach((element) => {
+      utils.render(parent, new Card(element).getElement(), utils.Position.BEFOREEND);
+    });
   },
 };
