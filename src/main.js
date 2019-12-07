@@ -12,6 +12,8 @@ import {getPopupTemplate} from "./components/site-film-popup";
 import {filters} from "./mock/filters";
 import {cards} from "./mock/card";
 
+import Card from "./components/site-film-card";
+
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
 
@@ -28,7 +30,7 @@ const renderElements = (elementsArray, elementsParent) => {
 
 const renderCards = (array, from, to, parent) => {
   array.slice(from, to).forEach((element) => {
-    utils.render(parent, utils.makeElement(getFilmCardTemplate(element)), utils.Position.BEFOREEND);
+    utils.render(parent, new Card(element).getElement(), utils.Position.BEFOREEND);
   });
 };
 

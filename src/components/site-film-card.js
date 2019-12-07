@@ -1,3 +1,5 @@
+import {utils} from "./site-utils";
+
 const getFilmCardTemplate = (card) => {
   const {id, comments, filmInfo} = card;
 
@@ -20,4 +22,27 @@ const getFilmCardTemplate = (card) => {
         </article>`;
 };
 
-export {getFilmCardTemplate};
+// export {getFilmCardTemplate};
+
+export default class Card {
+  constructor(card) {
+    this._card = card;
+    this._element = null;
+  }
+
+  getTemplate() {
+    return getFilmCardTemplate(this._card);
+  }
+
+  getElement() {
+    if (!this._element) {
+      this._element = utils.makeElement(this.getTemplate());
+    }
+
+    return this._element;
+  }
+
+  removeElement() {
+    this._element = null;
+  }
+}
