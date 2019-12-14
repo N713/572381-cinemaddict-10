@@ -58,9 +58,27 @@ export const utils = {
     });
   },
 
+  renderCard: (cardMock, cardContainer) => {
+    const card = new Card(cardMock);
+
+    const title = card.getElement().querySelector(`.film-card__title`);
+    const posterImage = card.getElement().querySelector(`.film-card img`);
+    const commentsCount = card.getElement().querySelector(`.film-card__comments`);
+
+    [title, posterImage, commentsCount].forEach((element) => {
+      element.addEventListener(`click`, () => {
+        document.querySelector(`.film-details`).classList
+          .remove(`visually-hidden`);
+      });
+      element.style.cursor = `pointer`;
+    });
+
+    utils.render(cardContainer, card.getElement(), utils.Position.BEFOREEND);
+  },
+
   renderCards: (array, from, to, parent) => {
     array.slice(from, to).forEach((element) => {
-      utils.render(parent, new Card(element).getElement(), utils.Position.BEFOREEND);
+      utils.renderCard(element, parent);
     });
   },
 };
