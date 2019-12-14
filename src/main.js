@@ -13,6 +13,8 @@ import FilmsListComponent from "./components/site-films-list";
 import ShowMoreButtonComponent from "./components/site-show-more-button";
 import PopupComponent from "./components/site-film-popup";
 
+import PageController from "./controllers/page-controller";
+
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
 
@@ -36,12 +38,19 @@ utils.renderElements(filmsSectionElements, filmsSection);
 const filmsList = filmsSection.querySelector(`.films-list`);
 const filmsListContainer = filmsSection.querySelector(`.films-list .films-list__container`);
 utils.render(filmsList, new ShowMoreButtonComponent().getElement(), utils.Position.BEFOREEND);
-utils.renderCards(cards, 0, NUMBER_OF_CARDS, filmsListContainer);
+
+const filmsController = new PageController(filmsListContainer, cards, 0, NUMBER_OF_CARDS);
+filmsController.init();
 
 const extras = filmsSection.querySelectorAll(`.films-list--extra .films-list__container`);
 const [topRated, mostCommented] = extras;
-utils.renderCards(cards, NUMBER_TO_SHOW, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, topRated);
-utils.renderCards(cards, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, NUMBER_TO_SHOW + 2 * NUMBER_OF_EXTRA_CARDS, mostCommented);
+
+const topController = new PageController(topRated, cards, NUMBER_TO_SHOW, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS);
+topController.init();
+
+const mostCommentedController = new PageController(mostCommented, cards, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS,
+  NUMBER_TO_SHOW + 2 * NUMBER_OF_EXTRA_CARDS);
+mostCommentedController.init();
 
 const body = document.querySelector(`body`);
 utils.render(body, new PopupComponent(cards[cards.length - 1]).getElement(), utils.Position.BEFOREEND);

@@ -1,16 +1,17 @@
-// Пока нихуя не понятно зачем он.
 import {utils} from "../components/site-utils";
 
-export class PageController {
-  constructor(container, cards) {
+const mainElement = document.querySelector(`.main`);
+
+export default class PageController {
+  constructor(container, cards, start, end) {
     this._container = container;
     this._cards = cards;
+    this._start = start;
+    this._end = end;
   }
 
   init() {
-    this._cards.forEach((card) => {
-      utils.renderCard(card, this._container);
-    });
+    utils.renderCards(this._cards, this._start, this._end, this._container);
 
     const filters = mainElement.querySelectorAll(`.sort__button`);
     const dataAtributes = [`default`, `by-date`, `by-rating`];
@@ -47,16 +48,16 @@ export class PageController {
 
     switch (evt.target.dataset.sorting) {
       case `default`:
-        const defaultData = films.slice();
-        utils.renderData(defaultData, this._container);
+        const defaultData = this._cards.slice();
+        utils.renderCards(defaultData, this._start, this._end, this._container);
         break;
       case `by-date`:
-        const sortedByDate = films.slice().sort((a, b) => b.year - a.year);
-        utils.renderData(sortedByDate, this._container);
+        const sortedByDate = this._cards.slice().sort((a, b) => b.filmInfo.release.date - a.filmInfo.release.date);
+        utils.renderCards(sortedByDate, this._start, this._end, this._container);
         break;
       case `by-rating`:
-        const sortedByRating = films.slice().sort((a, b) => b.rating - a.rating);
-        utils.renderData(sortedByRating, this._container);
+        const sortedByRating = this._cards.slice().sort((a, b) => b.filmInfo.totalRating - a.filmInfo.totalRating);
+        utils.renderCards(sortedByRating, this._start, this._end, this._container);
         break;
     }
   }
