@@ -1,27 +1,11 @@
-import {utils} from "./site-utils";
+import AbstractComponent from "./site-abstract-component";
 
 const getFilmsSectionTemplate = () => {
   return `<section class="films"></section>`;
 };
 
-export default class FilmsSectionComponent {
-  constructor() {
-    this._element = null;
-  }
-
+export default class FilmsSectionComponent extends AbstractComponent {
   getTemplate() {
     return getFilmsSectionTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.makeElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

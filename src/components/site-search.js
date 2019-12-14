@@ -1,4 +1,4 @@
-import {utils} from "./site-utils";
+import AbstractComponent from "./site-abstract-component";
 
 const getSearchTemplate = () => {
   return `
@@ -12,24 +12,8 @@ const getSearchTemplate = () => {
     </form>`;
 };
 
-export default class SearchComponent {
-  constructor() {
-    this._element = null;
-  }
-
+export default class SearchComponent extends AbstractComponent {
   getTemplate() {
     return getSearchTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.makeElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
