@@ -1,4 +1,4 @@
-import {utils} from "./site-utils";
+import AbstractComponent from "./site-abstract-component";
 
 const getProfileTemplate = () => {
   return `<section class="header__profile profile">
@@ -7,24 +7,8 @@ const getProfileTemplate = () => {
   </section>`;
 };
 
-export default class ProfileComponent {
-  constructor() {
-    this._element = null;
-  }
-
+export default class ProfileComponent extends AbstractComponent {
   getTemplate() {
     return getProfileTemplate();
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.makeElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

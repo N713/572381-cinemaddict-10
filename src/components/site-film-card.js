@@ -1,4 +1,4 @@
-import {utils} from "./site-utils";
+import AbstractComponent from "./site-abstract-component";
 
 const getFilmCardTemplate = (card) => {
   const {id, comments, filmInfo} = card;
@@ -22,25 +22,14 @@ const getFilmCardTemplate = (card) => {
         </article>`;
 };
 
-export default class Card {
+export default class Card extends AbstractComponent {
   constructor(card) {
+    super();
+
     this._card = card;
-    this._element = null;
   }
 
   getTemplate() {
     return getFilmCardTemplate(this._card);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.makeElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

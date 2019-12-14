@@ -1,4 +1,4 @@
-import {utils} from "./site-utils";
+import AbstractComponent from "./site-abstract-component";
 
 const makeFiltersMarkup = (filter) => {
   return `
@@ -18,25 +18,14 @@ const getNavigationTemplate = (filters) => {
     </nav>`);
 };
 
-export default class NavigationComponent {
+export default class NavigationComponent extends AbstractComponent {
   constructor(filters) {
+    super();
+
     this._filters = filters;
-    this._element = null;
   }
 
   getTemplate() {
     return getNavigationTemplate(this._filters);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.makeElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }

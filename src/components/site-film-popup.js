@@ -1,4 +1,4 @@
-import {utils} from "./site-utils";
+import AbstractComponent from "./site-abstract-component";
 
 const getPopupTemplate = (card) => {
   const {id, comments, filmInfo} = card;
@@ -170,25 +170,14 @@ const getPopupTemplate = (card) => {
 </section>`;
 };
 
-export default class PopupComponent {
+export default class PopupComponent extends AbstractComponent {
   constructor(card) {
+    super();
+
     this._card = card;
-    this._element = null;
   }
 
   getTemplate() {
     return getPopupTemplate(this._card);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = utils.makeElement(this.getTemplate());
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
   }
 }
