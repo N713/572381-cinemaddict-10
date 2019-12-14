@@ -8,5 +8,9 @@ export default class ShowMoreButtonComponent extends AbstractComponent {
   getTemplate() {
     return getShowMoreButtonTemplate();
   }
+
+  setClickHandler(handler) {
+    this.getElement().addEventListener(`submit`, handler);
+  }
 }
 

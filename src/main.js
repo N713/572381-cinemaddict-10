@@ -38,21 +38,6 @@ const filmsListContainer = filmsSection.querySelector(`.films-list .films-list__
 utils.render(filmsList, new ShowMoreButtonComponent().getElement(), utils.Position.BEFOREEND);
 utils.renderCards(cards, 0, NUMBER_OF_CARDS, filmsListContainer);
 
-let counter = NUMBER_OF_CARDS;
-
-const showMoreButton = filmsSection.querySelector(`.films-list__show-more`);
-showMoreButton.addEventListener(`click`, () => {
-  const showedCards = counter;
-  const cardsToShow = counter + SHOW_BY_BUTTON;
-  counter += SHOW_BY_BUTTON;
-
-  utils.renderCards(cards, showedCards, cardsToShow, filmsListContainer);
-
-  if (counter >= NUMBER_TO_SHOW) {
-    showMoreButton.remove();
-  }
-});
-
 const extras = filmsSection.querySelectorAll(`.films-list--extra .films-list__container`);
 const [topRated, mostCommented] = extras;
 utils.renderCards(cards, NUMBER_TO_SHOW, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, topRated);
@@ -82,3 +67,20 @@ closePopupButton.addEventListener(`click`, (evt) => {
 
   popup.classList.add(`visually-hidden`);
 });
+
+let counter = NUMBER_OF_CARDS;
+
+const showMoreCards = () => {
+  const showedCards = counter;
+  const cardsToShow = counter + SHOW_BY_BUTTON;
+  counter += SHOW_BY_BUTTON;
+
+  utils.renderCards(cards, showedCards, cardsToShow, filmsListContainer);
+
+  if (counter >= NUMBER_TO_SHOW) {
+    showMoreButton.remove();
+  }
+};
+
+const showMoreButton = filmsSection.querySelector(`.films-list__show-more`);
+showMoreButton.addEventListener(`click`, showMoreCards);
