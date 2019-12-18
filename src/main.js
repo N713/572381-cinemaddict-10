@@ -47,8 +47,8 @@ const [topRated, mostCommented] = extras;
 const topController = new PageController(topRated, cards, NUMBER_TO_SHOW, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS);
 topController.init();
 
-const mostCommentedController = new PageController(mostCommented, cards, NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS,
-  NUMBER_TO_SHOW + 2 * NUMBER_OF_EXTRA_CARDS);
+const mostCommentedController = new PageController(mostCommented, cards
+  , NUMBER_TO_SHOW + NUMBER_OF_EXTRA_CARDS, NUMBER_TO_SHOW + 2 * NUMBER_OF_EXTRA_CARDS);
 mostCommentedController.init();
 
 const body = document.querySelector(`body`);
