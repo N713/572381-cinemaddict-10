@@ -1,4 +1,8 @@
+import {body} from "../main";
 import Card from "./site-film-card";
+import PopupComponent from "./site-film-popup";
+
+const ESC_KEYCODE = 27;
 
 export const utils = {
   Position: {
@@ -73,6 +77,17 @@ export const utils = {
       element.style.cursor = `pointer`;
     });
 
+    card.getElement().addEventListener(`click`, (evt) => {
+      if (evt.target.tagName === `TITLE` || `IMG` || `P`) {
+        const cardId = parseInt(`${evt.target.parentNode.getAttribute(`data-id`)}`, 10);
+        utils.remove(body.querySelector(`.film-details`));
+        utils.renderPopup(cardMock);
+        body.querySelector(`.film-details`).classList.remove(`visually-hidden`);
+        body.querySelector(`.film-details`).setAttribute(`data-id`, cardId);
+        body.querySelector(`.film-details__controls`).setAttribute(`data-controls`, cardId);
+      }
+    });
+
     utils.render(cardContainer, card.getElement(), utils.Position.BEFOREEND);
   },
 
@@ -80,5 +95,24 @@ export const utils = {
     array.slice(from, to).forEach((element) => {
       utils.renderCard(element, parent);
     });
+  },
+
+  renderPopup: (popupMock) => {
+    const popup = new PopupComponent(popupMock);
+
+    popup.getElement().classList.add(`visually-hidden`);
+
+    document.addEventListener(`keydown`, (evt) => {
+      if (evt.keyCode === ESC_KEYCODE) {
+        popup.getElement().classList.add(`visually-hidden`);
+      }
+    });
+
+    popup.getElement().querySelector(`.film-details__close-btn`)
+      .addEventListener(`click`, () => {
+        popup.getElement().classList.add(`visually-hidden`);
+      });
+
+    utils.render(body, popup.getElement(), utils.Position.BEFOREEND);
   },
 };

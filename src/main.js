@@ -11,9 +11,8 @@ import ProfileComponent from "./components/site-profile";
 import SortingComponent from "./components/site-sorting";
 import FilmsListComponent from "./components/site-films-list";
 import ShowMoreButtonComponent from "./components/site-show-more-button";
-import PopupComponent from "./components/site-film-popup";
-
 import PageController from "./controllers/page-controller";
+import MovieController from "./controllers/site-movie-controller";
 
 const header = document.querySelector(`.header`);
 const main = document.querySelector(`.main`);
@@ -53,16 +52,8 @@ const mostCommentedController = new PageController(mostCommented, cards, NUMBER_
 mostCommentedController.init();
 
 const body = document.querySelector(`body`);
-utils.render(body, new PopupComponent(cards[cards.length - 1]).getElement(), utils.Position.BEFOREEND);
-const popup = body.querySelector(`.film-details`);
-popup.classList.add(`visually-hidden`);
-
-const closePopupButton = popup.querySelector(`.film-details__close-btn`);
-closePopupButton.addEventListener(`click`, (evt) => {
-  evt.preventDefault();
-
-  popup.classList.add(`visually-hidden`);
-});
+const movieController = new MovieController(cards, filmsController._onDataChange.bind(filmsController));
+movieController.init();
 
 let counter = NUMBER_OF_CARDS;
 
@@ -80,3 +71,5 @@ const showMoreCards = () => {
 
 const showMoreButton = filmsSection.querySelector(`.films-list__show-more`);
 showMoreButton.addEventListener(`click`, showMoreCards);
+
+export {body};

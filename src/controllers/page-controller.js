@@ -20,7 +20,8 @@ export default class PageController {
       filters[i].setAttribute(`data-sorting`, dataAtributes[i]);
     }
 
-    mainElement.querySelector(`.sort`).addEventListener(`click`, (evt) => this._onSortingClick(evt));
+    mainElement.querySelector(`.sort`)
+      .addEventListener(`click`, (evt) => this._onSortingClick(evt));
   }
 
   _onDataChange(newData, oldData) {
